@@ -1,0 +1,9 @@
+@use "../../utils/variables";
+
+.jd-footer-visitor {
+    background: variables.$jd_black;
+}
+
+.jd-footer-heart {
+    color: variables.$jd_heart;
+}

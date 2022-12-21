@@ -1,0 +1,6 @@
+<h2>Vérification de votre compte sur le site de Jean Dupont</h2>
+
+<p>Veillez cliquer sur le lien ci-dessous pour vérifier votre compte : </p>
+<a href="{{ absolute_url(path('visitor.registration.email_verification', {'id' : user_id, "token" : token_for_email_verification })) }}">Vérifier mon compte</a>
+
+<p><strong><u>NB</u></strong> : Vous devez vérifier votre compte avant le <em>{{ dead_line_for_email_verification }}</em></p>

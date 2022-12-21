@@ -1,0 +1,102 @@
+{% extends "themes/base_visitor.html.twig" %}
+
+{% block title %} - Inscription{% endblock %}
+
+{% block main %}
+
+    <h1 class="text-center my-3 display-5">Inscription</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-lg-7 mx-auto p-4 bg-white shadow">
+                {{ form_start(registrationForm) }}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="registration_form_firstName">Prénom</label>
+                                <div class="text-danger">{{ form_errors(registrationForm.firstName) }}</div>
+                                {{ form_widget(registrationForm.firstName, {'attr' : {'class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="registration_form_lastName">Nom</label>
+                                <div class="text-danger">{{ form_errors(registrationForm.lastName) }}</div>
+                                {{ form_widget(registrationForm.lastName, {'attr' : {'class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="registration_form_email">Email</label>
+                                <div class="text-danger">{{ form_errors(registrationForm.email) }}</div>
+                                {{ form_widget(registrationForm.email, {'attr' : {'class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="registration_form_password_first">Mot de passe</label>
+                                <div class="text-danger">{{ form_errors(registrationForm.password.first) }}</div>
+                                {{ form_widget(registrationForm.password.first, {'attr' : {'class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="registration_form_password_second">Confirmation du mot de passe</label>
+                                {{ form_widget(registrationForm.password.second, {'attr' : {'class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                <label for="registration_form_agreeTerms">Lire et accepter <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">les conditions gérérales d'utilisation</a></label>
+                            </div>
+                    
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Les conditions générales d'utilisation</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi vero alias, sequi corrupti, ab, sed ea porro sint a nam iure magni asperiores reprehenderit hic! Voluptatem aut sequi error debitis.
+                                        Vitae beatae molestias culpa? Quam in distinctio, itaque ad placeat eum. Error tenetur dolores natus similique ab quos pariatur ipsa odio vero, labore id officia obcaecati neque optio tempore ex!
+                                        Dolore cumque possimus provident sunt doloremque dolorem in sequi quo ullam dolores. Nihil, veritatis vel? Commodi quam accusamus reprehenderit illum alias repellendus facilis mollitia sequi! Non vel placeat quaerat doloremque!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">J'ai lu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <button formnovalidate type="submit" class="btn btn-primary">Je m'inscrire</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% set uri_url = app.request.getPathInfo() %}
+
+        <nav class="navbar navbar-expand-lg jd-navbar-visitor navbar-dark shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('visitor.welcome.index') }}">Dr. JD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {{ (uri_url == path('visitor.welcome.index')) ? 'active' : '' }}" {{ (uri_url == path('visitor.welcome.index')) ? 'aria-current="page"' : '' }} href="{{ path('visitor.welcome.index') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Qui suis-je ?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        {% if app.user %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app.logout') }}">Déconnexion</a>
+                        </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link {{ (uri_url == path('visitor.authentication.login')) ? 'active' : '' }}" {{ (uri_url == path('visitor.authentication.login')) ? 'aria-current="page"' : '' }} href="{{ path('visitor.authentication.login') }}">Connexion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ (uri_url == path('visitor.registration.register')) ? 'active' : '' }}" {{ (uri_url == path('visitor.registration.register')) ? 'aria-current="page"' : '' }} href="{{ path('visitor.registration.register') }}">Inscription</a>
+                            </li>
+                        {% endif %}   
+                    </ul>
+                </div>
+            </div>
+        </nav>

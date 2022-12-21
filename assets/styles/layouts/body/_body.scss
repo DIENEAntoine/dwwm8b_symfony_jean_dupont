@@ -1,0 +1,11 @@
+@use "../../utils/variables";
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: variables.$jd_light;
+}
