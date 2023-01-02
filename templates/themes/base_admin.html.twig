@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+
+        {# Encodage des caractères #}
+        <meta charset="UTF-8">
+
+        {# Activation de la compatibilité de l'affichage de la page avec Internet Explorer #}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        {# Minimum de responsive design #}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {# Chargement des balises meta pour le SEO #}
+        <meta name="robots"      content="noindex, nofollow" />
+        <meta name="description" content="Medecine du monde! {% block description %}{% endblock %}" />
+
+        {# Le titre affiché dans l'onglet de la page #}
+        <title>Medecine du monde - Admin - {% block title %}{% endblock %}</title>
+
+        {# Chargement de la Favicon #}
+        <link rel="apple-touch-icon"      sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32"   href="{{ asset('favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16"   href="{{ asset('favicon/favicon-16x16.png') }}">
+        <link rel="manifest"  href="{{ asset('favicon/site.webmanifest') }}">
+        <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        {# Font awesome #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+        {# Chargement de la font family #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+
+        {# Jquery #}
+        {% block jquery %}{% endblock %}
+
+        {# Datatables #}
+        {% block datatables %}{% endblock %}
+
+
+        {% block encore_css %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block encore_js %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+
+        
+        <link rel="stylesheet" href="{{ asset('admin_css/admin.css') }}">
+    </head>
+    <body>
+
+        <div class="d-flex bg-light" id="wrapper">
+
+            {# Sidebar #}
+            {% include "layouts/sidebar/_sidebar_admin.html.twig" %}
+
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                {# Barre de navigation #}
+                {% include "layouts/navbar/_navbar_admin.html.twig" %}
+
+                {# Le contenu spécifique à chaque page #}
+                <main class="container-fluid px-4">
+                    {% block main %}{% endblock %}
+                </main>
+            </div>
+        </div>
+    
+        <script>
+            let el = document.getElementById("wrapper");
+            let toggleButton = document.getElementById("menu-toggle");
+
+            toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
+        </script>
+    </body>
+</html>

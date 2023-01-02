@@ -1,0 +1,26 @@
+{% extends "themes/base_admin.html.twig" %}
+
+{% block title %}Nouvelle Categorie{% endblock %}
+
+{% block description %}Nouvelle Categorie{% endblock %}
+
+{% block main %}
+    <h1 class="display-5 text-center my-3">Nouvelle catégorie</h1>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                {{ form_start(form) }}
+                    <div class="mb-3">
+                        <label for="">Nom</label>
+                        <div class="text-danger">{{ form_errors(form.name) }}</div>
+                        {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <input formnovalidate type="submit" class="btn btn-primary" value="Créer">
+                    </div>
+                {{ form_end(form) }}
+            </div> 
+        </div>
+    </div>
+{% endblock %}

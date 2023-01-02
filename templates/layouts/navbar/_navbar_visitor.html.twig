@@ -23,9 +23,18 @@
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         {% if app.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('admin.home.index') }}">Espace admin</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Espace privé</a>
+                                </li>    
+                            {% endif %}
                             <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app.logout') }}">Déconnexion</a>
-                        </li>
+                                <a class="nav-link" href="{{ path('app.logout') }}">Déconnexion</a>
+                            </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link {{ (uri_url == path('visitor.authentication.login')) ? 'active' : '' }}" {{ (uri_url == path('visitor.authentication.login')) ? 'aria-current="page"' : '' }} href="{{ path('visitor.authentication.login') }}">Connexion</a>

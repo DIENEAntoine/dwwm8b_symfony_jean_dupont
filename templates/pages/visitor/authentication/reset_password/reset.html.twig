@@ -1,0 +1,22 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}Nouveau mot de passe{% endblock %}
+
+{% block description %}Nouveau mot de passe{% endblock %}
+
+{% block main %}
+
+    <h1 class="text-center my-3 display-5">Nouveau mot de passe</h1>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 mx-auto shadow bg-white p-4">
+            {{ form_start(resetForm) }}
+            {{ form_row(resetForm.plainPassword) }}
+                <button class="btn btn-primary">Je valide</button>
+            {{ form_end(resetForm) }}
+            </div>
+        </div>
+    </div>
+   
+{% endblock %}

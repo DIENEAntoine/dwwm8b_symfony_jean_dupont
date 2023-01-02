@@ -5,18 +5,28 @@
 {% block main %}
     <h1 class="text-center my-3 dsiplay-5">Connexion</h1>
 
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-lg-6 mx-auto shadow p-4 bg-white">
                 <form method="post">
+                    {# Message d'avertissement #}
+                    {% for message in app.flashes('warning') %}
+                        <div class="alert alert-warning text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {# Message de success #}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {# Message d'erreur #}
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                
-                    {% if app.user %}
-                        <div class="mb-3">
-                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                        </div>
                     {% endif %}
                 
                     <div class="mb-3">
@@ -44,6 +54,9 @@
                         <button formnovalidate class="btn btn-primary" type="submit">Me connecter</button>
                     </div>
                 </form>
+                    <div class="d-flex justify-content-center align-content-center">
+                        <a href="{{ path('visitor.forgot_password.request') }}">Mot de passe oublié ?</a>
+                    </div>
             </div>
         </div>
     </div>
