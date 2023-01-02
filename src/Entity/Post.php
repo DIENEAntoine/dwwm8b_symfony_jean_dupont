@@ -2,11 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
+use App\Entity\User;
+use App\Entity\Category;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -14,38 +22,90 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
+
+    #[Assert\NotBlank(
+        message: "Le titre de l'article est obligatoire."
+    )]
+    #[Assert\Length(
+        max: 255,        
+        maxMessage: " Le titre de l'article ne doit pas dépasser {{ limit }} caratctères.",
+    )]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+
+
+    #[Gedmo\Slug(fields: ['title'])]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+        
+    #[Assert\NotBlank(
+        message: "Le contenu de l'article est obligatoire."
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
+
+
+    #[Assert\File(
+        maxSize: '2048k',
+        extensions: ["image/jpeg", "image/png", "image/webp", "image/bmp"],
+        maxSizeMessage: "La taille de l'image doit être inférieur à 2 Mo.",
+        extensionsMessage: "Seuls les formats : jpeg, jpg, png, webp, bmp sont acceptés.",
+    )]
+    #[Vich\UploadableField(mapping: 'image_post', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
+
+
 
     #[ORM\Column(length: 255, nullable: true, options: array("unique" => true))]
     private ?string $image = null;
 
+        
+    #[Assert\NotBlank(
+        message: "La catégorie est obligatoire."
+    )]
+    #[Assert\Type(
+        type: Category::class,
+        message: 'Veuillez entrer une catégorie valide.',
+    )]
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    #[ORM\Column]
+
+
+    #[ORM\Column(options: array("default" => false))]
     private ?bool $isPublished = null;
 
+
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
+
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
+
     
+    public function __construct()
+    {
+        $this->isIsPublished = false;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -87,6 +147,33 @@ class Post
 
         return $this;
     }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    
 
     public function getImage(): ?string
     {
