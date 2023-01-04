@@ -1,0 +1,23 @@
+{% extends "themes/base_admin.html.twig" %}
+
+{% block title %}Lire l'articles numéro {{ post.id }}{% endblock %}
+
+{% block description %}Lire l'articles numéro {{ post.id }}{% endblock %}
+
+{% block main %}
+    <div class="container mt-3">
+
+        <div class="container my-2 text-center">
+            <img src="{{ vich_uploader_asset(post, 'imageFile') }}" class="img-fluid" alt="" />
+        </div>
+
+        <div class="container my-4 text-center">
+            <h1>{{ post.title }}</h1>
+        </div>
+
+        <div class="container my-2">
+            {{ post.content | raw}}
+        </div>
+
+    </div>
+{% endblock %}

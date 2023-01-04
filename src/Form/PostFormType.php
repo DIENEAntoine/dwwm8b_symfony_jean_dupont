@@ -28,16 +28,15 @@ class PostFormType extends AbstractType
                 'placeholder'  => "Choisissez une catégorie"
             ])
             ->add('imageFile', VichImageType::class, [
-                'required' => false,
-                // 'allow_delete' => true,
-                // 'delete_label' => '...',
-                // 'download_label' => '...',
-                // 'download_uri' => true,
-                // 'image_uri' => true,
-                // 'imagine_pattern' => '...',
-                // 'asset_helper' => true,
-            ]
-    )
+                'required'        => false,
+                'allow_delete'    => false,
+                'delete_label'    => false,
+                'download_label'  => false,
+                'download_uri'    => false,
+                'image_uri'       => false,
+                'imagine_pattern' => false,
+                'asset_helper'    => false,
+            ])
             ->add('content', TextareaType::class)
         ;
     }

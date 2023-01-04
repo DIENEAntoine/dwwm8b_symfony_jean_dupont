@@ -49,9 +49,9 @@ class Post
 
     #[Assert\File(
         maxSize: '2048k',
-        extensions: ["image/jpeg", "image/png", "image/webp", "image/bmp"],
+        mimeTypes: ["image/jpeg", "image/png", "image/webp", "image/bmp"],
         maxSizeMessage: "La taille de l'image doit être inférieur à 2 Mo.",
-        extensionsMessage: "Seuls les formats : jpeg, jpg, png, webp, bmp sont acceptés.",
+        mimeTypesMessage: "Seuls les formats : jpeg, jpg, png, webp, bmp sont acceptés.",
     )]
     #[Vich\UploadableField(mapping: 'image_post', fileNameProperty: 'image')]
     private ?File $imageFile = null;
@@ -102,7 +102,7 @@ class Post
     
     public function __construct()
     {
-        $this->isIsPublished = false;
+        $this->isPublished = false;
     }
 
 

@@ -1,0 +1,13 @@
+{% extends "themes/base_admin.html.twig" %}
+
+{% block title %}Listes de tags{% endblock %}
+
+{% block description %}Lis des tags{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Liste des tags</h1>
+
+    <div class="d-flex justify-content-end align-content-center">
+        <a href="{{ path('admin.tag.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-solid fa-plus"></i> Nouveau tag</a>
+    </div>
+{% endblock %}

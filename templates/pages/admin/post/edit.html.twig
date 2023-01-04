@@ -1,0 +1,57 @@
+{% extends "themes/base_admin.html.twig" %}
+
+{% block title %}Modifier l'article numéro {{ post.id }}{% endblock %}
+
+{% block description %}Modifier l'article numéro {{ post.id }}{% endblock %}
+
+{% block tiny %}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#post_form_content'
+        });
+    </script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Modifier l'article numéro {{ post.id }}</h1>
+
+    <div class="container mt-5">
+        {{ form_start(form) }}
+            <div class="mb-3">
+                <label for="post_form_title">Titre</label>
+                <div class="text-danger">{{ form_errors(form.title) }}</div>
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                <label for="post_form_category">Catégorie</label>
+                <div class="text-danger">{{ form_errors(form.category) }}</div>
+                {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        {% if post.image %}
+                            <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('admin_post_image_thumbnail') }}" alt="{{ post.title }}" />
+                        {% else %}
+                            <p class="mt-4">Aucune image pour cet article</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="post_form_image">Image</label>
+                        <div class="text-danger">{{ form_errors(form.imageFile) }}</div>
+                        {{ form_widget(form.imageFile) }}
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="post_form_content">Contenu</label>
+                <div class="text-danger">{{ form_errors(form.content) }}</div>
+                {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 10}}) }}
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary" value="Modifier" formnovalidate />
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
