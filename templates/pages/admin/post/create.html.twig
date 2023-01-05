@@ -11,8 +11,18 @@
             selector: 'textarea#post_form_content'
         });
     </script>
-
 {% endblock %}
+
+{% block jquery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block select2 %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+
 
 {% block main %}
     <h1 class="text-center my-3 display-5">Nouvel article</h1>
@@ -20,22 +30,36 @@
     <div class="container mt-5 pb-3">
         {{ form_start(form) }}
             <div class="mb-3">
-                <label for="">Titre</label> 
+                <label for="post_form_title">Titre</label> 
                 <div class="text-danger">{{ form_errors(form.title) }}</div>
                 {{ form_widget(form.title, {'attr' : {'class' : "form-control", 'autofocus' : true}}) }}
             </div>
             <div class="mb-3">
-                <label for="">Categorie</label>
+                <label for="post_form_category">Categorie</label>
                 <div class="text-danger">{{ form_errors(form.category) }}</div>
                 {{ form_widget(form.category, {'attr' : {'class' : "form-control"}}) }}
             </div>
+            {% if tags|length != 0 %}
+                <div class="mb-3">
+                    <label for="post_form_tags">Tags</label>
+                    <div class="text-danger">{{ form_errors(form.tags) }}</div>
+                    {{ form_widget(form.tags, {'attr' : {'class' : "form-control"}}) }}
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $('#post_form_tags').select2();
+                    });
+                </script>
+                {% else %}
+                {{ form_widget(form.tags, {'attr' : {'class' : "d-none"}}) }}
+            {% endif %}
             <div class="mb-3">
-                <label for="">Image</label>
+                <label for="post_form_image">Image</label>
                 <div class="text-danger">{{ form_errors(form.imageFile) }}</div>
                 {{ form_widget(form.imageFile, {'attr' : {'class' : "form-control"}}) }}
             </div>
             <div class="mb-3">
-                <label for="">Contenu</label>
+                <label for="post_form_content">Contenu</label>
                 <div class="text-danger">{{ form_errors(form.content) }}</div>
                 {{ form_widget(form.content, {'attr' : {'class' : "form-control", "rows" : 10}}) }}
             </div>

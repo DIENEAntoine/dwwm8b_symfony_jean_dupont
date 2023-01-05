@@ -7,8 +7,8 @@ vich_uploader:
 
     mappings:
         image_post:
-            uri_prefix: /images/posts
-            upload_destination: '%kernel.project_dir%/public/images/posts'
+            uri_prefix: /images/dynamic/posts
+            upload_destination: '%kernel.project_dir%/public/images/dynamic/posts'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
             inject_on_load: false

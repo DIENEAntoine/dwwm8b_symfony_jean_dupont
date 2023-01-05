@@ -46,6 +46,7 @@
                     <th>Image</th>
                     <th>Titre</th>
                     <th>Catégorie</th>
+                    <th>Tags</th>
                     <th>Publié ?</th>
                     <th>Contenu</th>
                     <th>Options</th>
@@ -64,6 +65,11 @@
                         </td>
                         <td>{{ post.title }}</td>
                         <td>{{ post.category.name }}</td>
+                        <td>
+                            {% for tag in post.tags %} 
+                               <span class="badge text-bg-info"> {{ tag.name }} </span>
+                            {% endfor %}
+                        </td>
                         <td>
                             <div class="d-flex flex-column justify-content-center align-content-center">
                                 {% if post.isPublished %}

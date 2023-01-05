@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[UniqueEntity('name')]
 #[UniqueEntity(fields: ['name'], message: 'Cette catégorie existe dèja! Veillez choisir un autre nom.')]
 class Category
 {

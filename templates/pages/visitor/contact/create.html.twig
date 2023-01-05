@@ -1,0 +1,57 @@
+{% extends "themes/base_visitor.html.twig" %}
+
+{% block title %} - Contact{% endblock %}
+
+{% block description %}Contactez-moi{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Contactez-moi</h1>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-9">
+                {{ form_start(form) }} 
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Prénom</label>
+                            <div class="text-danger">{{ form_errors(form.firstName) }}</div>
+                            {{ form_widget(form.firstName, {'attr' : {'class' : 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Nom</label>
+                            <div class="text-danger">{{ form_errors(form.lastName) }}</div>
+                            {{ form_widget(form.lastName, {'attr' : {'class' : 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Email</label>
+                            <div class="text-danger">{{ form_errors(form.email) }}</div>
+                            {{ form_widget(form.email, {'attr' : {'class' : 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Téléphone</label>
+                            <div class="text-danger">{{ form_errors(form.phone) }}</div>
+                            {{ form_widget(form.phone, {'attr' : {'class' : 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label>Message</label>
+                            <div class="text-danger">{{ form_errors(form.message) }}</div>
+                            {{ form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows':6}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <input type="submit" class="btn btn-primary" />
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-3">
+                <img src="{{ asset('images/static/visitor/contact/contact.svg') }}" class="img-fluid" alt="Image de Jean Dupont vous demandant de le contacter" />
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -12,13 +12,13 @@
                             <a class="nav-link {{ (uri_url == path('visitor.welcome.index')) ? 'active' : '' }}" {{ (uri_url == path('visitor.welcome.index')) ? 'aria-current="page"' : '' }} href="{{ path('visitor.welcome.index') }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Qui suis-je ?</a>
+                            <a class="nav-link" href="{{ path('visitor.about_me.index') }}">Qui suis-je ?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="{{ path('visitor.blog.index') }}">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="{{ path('visitor.contact.create') }}">Contact</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">

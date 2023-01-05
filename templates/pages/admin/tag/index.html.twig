@@ -7,7 +7,49 @@
 {% block main %}
     <h1 class="text-center my-3 display-5">Liste des tags</h1>
 
-    <div class="d-flex justify-content-end align-content-center">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-end align-content-center my-3">
         <a href="{{ path('admin.tag.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-solid fa-plus"></i> Nouveau tag</a>
     </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover text-center">
+            <thead class="bg-dark text-center text-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Slug</th>
+                    <th>Date de création</th>
+                    <th>Date de modification</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in tags %}
+                    <tr>
+                        <td>{{tag.id}}</td>
+                        <td>{{tag.name}}</td>
+                        <td>{{tag.slug}}</td>
+                        <td>{{tag.createdAt|date('d/m/Y à H:i:s') }}</td>
+                        <td>{{tag.updatedAt|date('d/m/Y à H:i:s') }}</td>
+                        <td>
+                            <a href="{{ path('admin.tag.edit', {'id': tag.id}) }}" title="Modifier"  class="m-1 text-secondary"><i class="fa fa-thin fa-pen"></i></a>
+                            <a href="#" title="Supprimer" class="m-1 text-danger" onclick="event.preventDefault(); confirm('Supprimer') && document.querySelector('.js-logout-form-{{ tag.id }}').submit();";><i class="fa fa-solid fa-trash-can"></i></a>
+
+                            <form class="js-logout-form-{{ tag.id }}" action="{{ path('admin.tag.delete', {'id': tag.id}) }}" method="post" class="d-none">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('tag_' ~ tag.id) }}">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

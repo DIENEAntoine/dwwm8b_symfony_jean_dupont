@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Post;
 use App\Entity\Post;
 use DateTimeImmutable;
 use App\Form\PostFormType;
+use App\Repository\TagRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +24,16 @@ class PostController extends AbstractController
 
 
     #[Route('/admin/post/create', name: 'admin.post.create')]
-    public function create(Request $request, PostRepository $postRepository, CategoryRepository $categoryRepository): Response
+    public function create(Request $request, 
+        PostRepository $postRepository, 
+        CategoryRepository $categoryRepository,
+        TagRepository $tagRepository
+        ): Response
     {
 
         if ( ! $categoryRepository->findAll() ) 
         {
-            $this->addFlash("warning", "Vous devez créer au moins une catégorie avent de rédiger des articles.");
+            $this->addFlash("warning", "Vous devez créer au moins une catégorie avant de rédiger des articles.");
             return $this->redirectToRoute('admin.category.index');
         }
 
@@ -47,6 +52,7 @@ class PostController extends AbstractController
         
         return $this->render('pages/admin/post/create.html.twig', [
             "form" => $form->createView(),
+            "tags" => $tagRepository->findAll(),
         ]);
     }
 
@@ -85,8 +91,21 @@ class PostController extends AbstractController
 
 
     #[Route('/admin/post/{id<[0-9]+>}/edit', name: 'admin.post.edit')]
-    public function edit(Post $post, Request $request, PostRepository $postRepository): Response
+    public function edit(
+        Post $post, 
+        Request $request, 
+        PostRepository $postRepository, 
+        CategoryRepository $categoryRepository,
+        TagRepository $tagRepository,
+        ): Response
     {
+
+        if ( ! $categoryRepository->findAll() ) 
+        {
+            $this->addFlash("warning", "Vous devez créer au moins un tag avant .");
+            return $this->redirectToRoute('admin.category.index');
+        }
+
         $form = $this->createForm(PostFormType::class, $post);
 
         $form->handleRequest($request);
@@ -101,7 +120,8 @@ class PostController extends AbstractController
 
         return $this->render("pages/admin/post/edit.html.twig", [
             "form" => $form->createView(),
-            "post" => $post
+            "post" => $post,
+            "tags" => $tagRepository->findAll(),
         ]);
     }
 
